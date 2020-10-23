@@ -39,7 +39,7 @@ fetch(URL)
         console.log(
           attractionArray[item].id,
           attractionArray[item].date,
-          attractionArray[item].attraction * usdRates
+          attractionArray[item].attraction
         );
       }
     }
