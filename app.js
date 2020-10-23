@@ -8,6 +8,7 @@ fetch(URL)
     let attractionArray = [];
     const usdRates = 28.27;
     const eurRates = 33.53;
+    let id = 0;
 
     for (let item of data) {
       let date = item.repaydate.split(".").reverse().join("-");
@@ -16,29 +17,31 @@ fetch(URL)
         repeatData.date = date;
         repeatData.attraction = item.attraction;
         repeatData.valcode = item.valcode;
+        repeatData.id = id;
         attractionArray.push(repeatData);
+        id++;
       }
     }
-
-    let uah = attractionArray.filter((el) => el.valcode == "UAH");
-    let usd = attractionArray.filter((el) => el.valcode == "USD");
-    let eur = attractionArray.filter((el) => el.valcode == "EUR");
-
-    let uahTotal = uah.reduce((acc, el) => {
-      return acc + el.attraction;
-    }, 0);
-    let usdTotal = usd.reduce((acc, el) => {
-      return acc + el.attraction * usdRates;
-    }, 0);
-    let eurTotal = eur.reduce((acc, el) => {
-      return acc + el.attraction * eurRates;
-    }, 0);
-
-    let totalAttraction = uahTotal + usdTotal + eurTotal;
-    container.innerHTML = `
-    <h5>Общая сумма облигаций в гривне = ${uahTotal.toFixed(2)} грн.</h5>
-    <h5>Общая сумма облигаций в долларе = ${usdTotal.toFixed(2)} грн.</h5>
-    <h5>Общая сумма облигаций в евро = ${eurTotal.toFixed(2)} грн.</h5>
-    <h5>Общая сумма облигаций = ${totalAttraction.toFixed(2)} грн.</h5>
-    `;
+    for (let item in attractionArray) {
+      if (attractionArray[item].valcode == "USD") {
+        console.log(
+          attractionArray[item].id,
+          attractionArray[item].date,
+          attractionArray[item].attraction * usdRates
+        );
+      } else if (attractionArray[item].valcode == "EUR") {
+        console.log(
+          attractionArray[item].id,
+          attractionArray[item].date,
+          attractionArray[item].attraction * usdRates
+        );
+      } else {
+        console.log(
+          attractionArray[item].id,
+          attractionArray[item].date,
+          attractionArray[item].attraction * usdRates
+        );
+      }
+    }
+    // console.log(attractionArray);
   });
